@@ -1,0 +1,18 @@
+[Unit]
+Description=App Transgeneraciona-App over Apache 
+After=etcd.service
+After=docker.service
+Requires=apache-discovery@%i.service
+
+[Service]
+TimeoutStartSec=0
+Killmode=none
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill apache%i
+ExecStartPre=-/usr/bin/docker rm apache%i
+ExecStartPre=/usr/bin/docker pull 3nueves/apache
+ExecStart=/usr/bin/docker run --name apache%i -p ${COREOS_PUBLIC_IPV4}:%i:80 3nueves/apache /usr/sbin/apache2ctl -D FOREGROUND
+ExecStop=/usr/bin/docker stop apache%i
+
+#[X-Fleet]
+#Conflicts=apache@*.service
