@@ -19,8 +19,8 @@ RUN cat /tmp/id_tapp.pub >> /root/.ssh/authorized_keys && rm -f /tmp/id_tapp.pub
 
 # MySQL Installation
 RUN apt-get update
-RUN echo "mysql-server mysql-server/root_password password 3Tres39Nueves9" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password 3Tres39Nueves9" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password password 12345" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password_again password 12345" | debconf-set-selections
 RUN apt-get install -y mysql-server
 
 ADD build/my.cnf    /etc/mysql/my.cnf
